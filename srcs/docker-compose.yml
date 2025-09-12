@@ -1,0 +1,16 @@
+
+volumnes:
+  wordpress:
+    driver: local
+    driver_opts:
+      type: none
+      device: /home/agus/data/wordpress
+      o: bind
+  db:
+    driver: local
+    driver_opts:
+      type: none
+      device: /home/agus/data/db
+      o: bind
+    
+
