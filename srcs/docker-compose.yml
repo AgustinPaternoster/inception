@@ -1,4 +1,12 @@
 
+service:
+  
+
+
+networks:
+  custom-net:
+    driver: bridge
+
 volumnes:
   wordpress:
     driver: local
