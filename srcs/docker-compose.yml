@@ -1,5 +1,20 @@
 
-service:
+services:
+  mariadb:
+    container_name: mariadb
+    build:
+      context: ./requirements/mariadb/
+    image: mariadb
+    ports:
+      - 3306:3306
+    volumes:
+      - db:/var/lib/mysql
+    networks:
+      - custom-net 
+    env_file:
+      - .env
+    
+
   
 
 
@@ -7,8 +22,8 @@ networks:
   custom-net:
     driver: bridge
 
-volumnes:
-  wordpress:
+volumes:
+  wp:
     driver: local
     driver_opts:
       type: none
