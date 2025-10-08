@@ -16,7 +16,6 @@ RUN chmod 600 /etc/nginx/certs/apaterno.42.fr.key
 
 WORKDIR /usr/local/bin
 
-COPY ./tools/index.html /var/www/html/ 
 COPY ./conf/apaterno.42.fr.conf /etc/nginx/conf.d/
 
 EXPOSE 443
