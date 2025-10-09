@@ -1,26 +1,23 @@
 FROM debian:12
 
-RUN apt-get update -y\
-	&& apt install -y nginx openssl
+RUN apt-get update && apt-get install -y \
+    nginx \
+    openssl \
+    && rm -rf /var/lib/apt/lists/*
 
-RUN mkdir /etc/nginx/certs/
+RUN mkdir -p /etc/nginx/certs /var/www/html /run/nginx
 
-COPY ./conf/san.cnf /etc/nginx/certs/
+COPY conf/default.conf /etc/nginx/conf.d/default.conf
+COPY conf/san.cnf /etc/nginx/certs/san.cnf
 
-RUN openssl genpkey -algorithm RSA -out /etc/nginx/certs/apaterno.42.fr.key
-RUN openssl req -x509 -days 365 \ 
-		-key /etc/nginx/certs/apaterno.42.fr.key \
-		-out /etc/nginx/certs/apaterno.42.fr.crt \ 
-		-config /etc/nginx/certs/san.cnf
-RUN chmod 600 /etc/nginx/certs/apaterno.42.fr.key
-
-WORKDIR /usr/local/bin
-
-COPY ./conf/apaterno.42.fr.conf /etc/nginx/conf.d/
+RUN openssl genpkey -algorithm RSA -out /etc/nginx/certs/apaterno.42.fr.key && \
+    openssl req -x509 -days 365 \
+        -key /etc/nginx/certs/apaterno.42.fr.key \
+        -out /etc/nginx/certs/apaterno.42.fr.crt \
+        -config /etc/nginx/certs/san.cnf && \
+    chmod 600 /etc/nginx/certs/apaterno.42.fr.key
 
 EXPOSE 443
 
-ENTRYPOINT ["nginx", "-g", "daemon off;"]
-
-
+CMD ["nginx", "-g", "daemon off;"]
 

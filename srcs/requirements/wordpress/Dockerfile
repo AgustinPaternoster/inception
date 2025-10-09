@@ -1,35 +1,32 @@
 FROM debian:12
 
-RUN apt-get update && apt install -y\
-	wget \
-        php\
-        php-fpm \
-        php-mysqli \
-        php-gd \
-       	php-curl \
-	php-mbstring \
-        php-xml \
-        php-zip
+RUN apt-get update && apt-get install -y \
+    php-fpm \
+    php-mysqli \
+    php-curl \
+    php-json \
+    php-xml \
+    php-gd \
+    php-mbstring \
+    wget \
+    curl \
+    mariadb-client \
+   && rm -rf /var/lib/apt/lists/*
 
-RUN mkdir -p /var/www/html
+RUN mkdir -p /var/www/html /run/php
 
-RUN wget  https://wordpress.org/latest.tar.gz -O /tmp/wordpress.tar.gz \
-	&& tar -xzf /tmp/wordpress.tar.gz -C /var/www/html --strip-components=1\
-	&& rm /tmp/wordpress.tar.gz
-
-RUN chown -R www-data:www-data /var/www/html
-
-WORKDIR /usr/local/bin
+RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar && \
+    chmod +x wp-cli.phar && mv wp-cli.phar /usr/local/bin/wp
 
 COPY ./conf/www.conf /etc/php/8.2/fpm/pool.d
-COPY ./tools/init.sh .
+COPY tools/setup_wordpress.sh /usr/local/bin/setup_wordpress.sh
+RUN chmod +x /usr/local/bin/setup_wordpress.sh
 
-RUN chmod +x ./init.sh
+WORKDIR /var/www/html
 
 EXPOSE 9000
 
-CMD ["./init.sh"]
-
+ENTRYPOINT ["/usr/local/bin/setup_wordpress.sh"]
 
 
 
