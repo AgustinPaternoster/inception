@@ -1,4 +1,4 @@
-services:
+\services:
   maria-db:
     container_name: dbase
     build:
@@ -9,8 +9,9 @@ services:
     networks:
       - inception
     env_file:
-      - .env    
- 
+      - .env
+    restart: unless-stopped
+
   wordpress:
     container_name: wordpress
     build:
@@ -24,22 +25,22 @@ services:
       - inception
     env_file:
       - .env
-  
+    restart: unless-stopped
+
   nginx:
     container_name: ngx
     build:
       context: ./requirements/nginx
-    depends_on: 
+    depends_on:
       - wordpress
     image: nginx
     ports:
-      - 443:443 
+      - 443:443
     volumes:
       - wp:/var/www/html
     networks:
       - inception
-
-  
+    restart: unless-stopped
 
 
 networks:
