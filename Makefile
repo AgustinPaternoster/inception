@@ -11,8 +11,8 @@ clean: down
 	@images=$$(docker image ls -q)
 	if [ -n "$$images" ]; then \
 		docker rmi $$images;\
-	else
-		echo "no image to delete"	
+	else\
+		echo "no image to delete";\
 	fi
 
 fclean: clean
