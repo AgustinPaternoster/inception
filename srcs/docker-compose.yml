@@ -53,13 +53,13 @@ volumes:
     driver: local
     driver_opts:
       type: none
-      device: /home/agus/data/wordpress
+      device: /home/apaterno/data/wordpress
       o: bind
   db:
     driver: local
     driver_opts:
       type: none
-      device: /home/agus/data/db
+      device: /home/apaterno/data/db
       o: bind
     
 
