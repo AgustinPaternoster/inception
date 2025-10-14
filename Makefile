@@ -3,7 +3,7 @@ all: up
 	
 
 up:
-	docker compose -f ./srcs/docker-compose.ylm -d --build
+	docker compose -f ./srcs/docker-compose.ylm up -d --build
 down:
 	docker compose -f ./srcs/docker-compose.ylm down
 
