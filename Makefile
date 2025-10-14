@@ -8,17 +8,22 @@ down:
 	docker compose -f ./srcs/docker-compose.yml down
 
 clean: down
-	@images=$$(docker image ls -q)
+	@images=$$(docker image ls -q);\
 	if [ -n "$$images" ]; then \
 		docker rmi $$images;\
-	else\
-		echo "no image to delete";\
 	fi
 
 fclean: clean
-	@sudo rm -rf /home/apaterno/data/db/*
-	@sudo rm -rf /home/apaterno/data/db/*
-	@docker compose down -v
+	
+	@if [ -d "/home/apaterno/data/db" ]; then \
+	sudo rm -rf /home/apaterno/data/db/*; \
+	fi
+
+	@if [ -d "/home/apaterno/data/wordpress" ]; then \
+	sudo rm -rf /home/apaterno/data/wordpress/*;\
+	fi
+
+	docker compose -f./srcs/docker-compose.yml down -v
  
 re: fclean all
 
