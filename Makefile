@@ -8,7 +8,12 @@ down:
 	docker compose -f ./srcs/docker-compose.yml down
 
 clean: down
-	@docker rmi $$(docker image ls -q) || true
+	@images=$$(docker image ls -q)
+	if [ -n "$$images" ]; then \
+		docker rmi $$images;\
+	else
+		echo "no image to delete"	
+	fi
 
 fclean: clean
 	@sudo rm -rf /home/apaterno/data/db/*
