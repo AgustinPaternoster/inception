@@ -8,7 +8,7 @@ down:
 	docker compose -f ./srcs/docker-compose.yml down
 
 clean: down
-	docker rmi $(docker image ls -q)
+	@docker rmi $$(docker image ls -q) || true
 
 fclean: clean
 	@sudo rm -rf /home/apaterno/data/db/*
