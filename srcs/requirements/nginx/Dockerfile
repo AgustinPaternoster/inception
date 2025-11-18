@@ -10,6 +10,8 @@ RUN mkdir -p /etc/nginx/certs /var/www/html /run/nginx
 COPY conf/default.conf /etc/nginx/conf.d/default.conf
 COPY conf/san.cnf /etc/nginx/certs/san.cnf
 
+RUN rm /etc/nginx/sites-enabled/default
+
 RUN openssl genpkey -algorithm RSA -out /etc/nginx/certs/apaterno.42.fr.key && \
     openssl req -x509 -days 365 \
         -key /etc/nginx/certs/apaterno.42.fr.key \
