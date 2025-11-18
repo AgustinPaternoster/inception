@@ -7,7 +7,7 @@ services:
     volumes:
       - db:/var/lib/mysql
     networks:
-      - inception
+      - back-end
     env_file:
       - .env
     restart: unless-stopped
@@ -22,7 +22,8 @@ services:
     volumes:
       - wp:/var/www/html
     networks:
-      - inception
+      - back-end
+      - front-end
     env_file:
       - .env
     restart: unless-stopped
@@ -39,13 +40,16 @@ services:
     volumes:
       - wp:/var/www/html
     networks:
-      - inception
+      - front-end
     restart: unless-stopped
 
 
 networks:
-  inception:
-    name: inception
+  front-end:
+    name: front-end
+    driver: bridge
+  back-end:
+    name: back-end
     driver: bridge
 
 volumes:
