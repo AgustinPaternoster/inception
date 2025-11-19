@@ -10,6 +10,8 @@ until mysqladmin ping --silent; do
 	sleep 1
 done
 
+DB_ROOT_PASSWORD =$(cat /run/secrets/db_root_pass)
+
 mysql -u root << EOF
 ALTER USER 'root'@'localhost' IDENTIFIED BY '$DB_ROOT_PASSWORD';
 CREATE DATABASE IF NOT EXISTS \`$DB_NAME\`;

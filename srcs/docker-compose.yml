@@ -10,6 +10,8 @@ services:
       - back-end
     env_file:
       - .env
+    secrets:
+      - db_root_pass
     restart: unless-stopped
 
   wordpress:
@@ -65,5 +67,9 @@ volumes:
       type: none
       device: /home/apaterno/data/db
       o: bind
+
+secrets:
+  db_root_pass:
+    file: ../secrets/db_root_pass.txt
     
 
