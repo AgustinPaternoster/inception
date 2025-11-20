@@ -13,6 +13,9 @@ services:
     secrets:
       - db_root_pass
       - db_admin_pass
+      - db_user_pass
+    environment:
+      DB_USER_PASSWORD: /run/secrets/db_user_pass
     restart: unless-stopped
 
   wordpress:
@@ -29,6 +32,12 @@ services:
       - front-end
     env_file:
       - .env
+    secrets:
+      - db_root_pass
+      - db_admin_pass
+      - db_user_pass
+    environment:
+      DB_USER_PASSWORD: /run/secrets/db_user_pass
     restart: unless-stopped
 
   nginx:
