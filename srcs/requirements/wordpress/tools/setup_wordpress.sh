@@ -2,6 +2,8 @@
 set -e
 
 db_password=$(cat $DB_USER_PASSWORD)
+admin_pass=$(cat $WP_ADMIN_PASS)
+user_pass=$(cat $WP_USER_PASS)
 
 echo "Esperando a que la base de datos esté lista..."
 until mariadb -h"$DB_HOST" -u"$DB_USER" -p"$db_password" "$DB_NAME" &>/dev/null; do
@@ -24,12 +26,12 @@ if [ ! -f wp-config.php ]; then
     --url="https://${DOMAIN_NAME}" \
     --title="Inception Project" \
     --admin_user="$WP_ADMIN_USER" \
-    --admin_password="$WP_ADMIN_PASS" \
+    --admin_password="$admin_pass" \
     --admin_email="$WP_ADMIN_EMAIL"
 
   wp user create "$WP_USER" "$WP_USER_EMAIL" \
     --role=author \
-    --user_pass="$WP_USER_PASS" \
+    --user_pass="$user_pass" \
     --allow-root
 fi
 

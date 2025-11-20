@@ -33,11 +33,13 @@ services:
     env_file:
       - .env
     secrets:
-      - db_root_pass
-      - db_admin_pass
       - db_user_pass
+      - wp_admin_pass
+      - wp_user_pass
     environment:
       DB_USER_PASSWORD: /run/secrets/db_user_pass
+      WP_ADMIN_PASS: /run/secrets/wp_admin_pass
+      WP_USER_PASS: /run/secrets/wp_user_pass
     restart: unless-stopped
 
   nginx:
@@ -85,5 +87,9 @@ secrets:
     file: ../secrets/db_admin_pass.txt
   db_user_pass:
     file: ../secrets/db_user_pass.txt
+  wp_admin_pass:
+    file: ../secrets/wp_admin_pass.txt
+  wp_user_pass:
+    file: ../secrets/wp_user_pass.txt
     
 
