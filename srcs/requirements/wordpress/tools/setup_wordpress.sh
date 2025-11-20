@@ -1,10 +1,9 @@
 #!/bin/bash
 set -e
 
-db_pass=$(cat /run/secrets/db_user_pass)
 
 echo "Esperando a que la base de datos esté lista..."
-until mariadb -h"$DB_HOST" -u"$DB_USER" -p"$db_pass" "$DB_NAME" &>/dev/null; do
+until mariadb -h"$DB_HOST" -u"$DB_USER" -p"$DB_USER_PASSWORD" "$DB_NAME" &>/dev/null; do
   sleep 2
 done
 echo "Base de datos disponible."
@@ -16,7 +15,7 @@ if [ ! -f wp-config.php ]; then
   wp config create --allow-root \
     --dbname="$DB_NAME" \
     --dbuser="$DB_USER" \
-    --dbpass="$db_pass" \
+    --dbpass="$DB_USER_PASSWORD" \
     --dbhost="$DB_HOST" \
     --path='/var/www/html'
 
