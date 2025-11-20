@@ -10,10 +10,6 @@ services:
       - back-end
     env_file:
       - .env
-    environment:
-      DB_ADMIN_PASSWORD: /run/secrets/db_admin_pass
-      DB_ROOT_PASSWORD: /run/secrets/db_root_pass
-      DB_USER_PASSWORD: /run/secrets/db_user_password
     secrets:
       - db_root_pass
       - db_admin_pass
@@ -34,8 +30,6 @@ services:
       - front-end
     env_file:
       - .env
-    environment:
-      DB_USER_PASSWORD: /run/secrets/db_user_password
     secrets:
       - db_user_pass
     restart: unless-stopped

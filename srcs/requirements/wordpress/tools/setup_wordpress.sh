@@ -1,6 +1,8 @@
 #!/bin/bash
 set -e
 
+DB_USER_PASSWORD=$(cat /run/secrets/db_user_pass )
+
 echo "Esperando a que la base de datos esté lista..."
 until mariadb -h"$DB_HOST" -u"$DB_USER" -p"$DB_USER_PASSWORD" "$DB_NAME" &>/dev/null; do
   sleep 2
