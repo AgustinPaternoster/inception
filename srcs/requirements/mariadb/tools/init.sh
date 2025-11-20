@@ -12,7 +12,6 @@ done
 
 DB_ROOT_PASSWORD=$(cat /run/secrets/db_root_pass)
 DB_ADMIN_PASSWORD=$(cat /run/secrets/db_admin_pass)
-DB_USER_PASSWORD=$(cat /run/secrets/db_user_pass)
 
 mysql -u root << EOF
 ALTER USER 'root'@'localhost' IDENTIFIED BY '$DB_ROOT_PASSWORD';
