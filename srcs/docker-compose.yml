@@ -13,6 +13,7 @@ services:
     secrets:
       - db_root_pass
       - db_admin_pass
+      - db_user_pass
     restart: unless-stopped
 
   wordpress:
