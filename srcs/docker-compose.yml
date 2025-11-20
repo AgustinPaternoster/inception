@@ -30,6 +30,10 @@ services:
       - front-end
     env_file:
       - .env
+    secrets:
+      - db_root_pass
+      - db_admin_pass
+      - db_user_pass
     restart: unless-stopped
 
   nginx:
