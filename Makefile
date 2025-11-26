@@ -24,6 +24,6 @@ fclean: clean
 	fi
 
 	docker compose -f./srcs/docker-compose.yml down -v
- 
+	docker volume prune -f
 re: fclean all
 
